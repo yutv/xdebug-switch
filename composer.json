@@ -1,0 +1,15 @@
+{
+  "name": "yutv/xdebug-toggle",
+  "description": "xdebug toggle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Yurii Tvardyi"
+    }
+  ],
+  "require": {},
+  "bin" : [
+    "xdebug",
+    "ps1-xdebug-status"
+  ]
+}

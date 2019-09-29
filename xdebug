@@ -1,0 +1,39 @@
+#!/bin/bash
+
+warn()
+{
+    if [ -z "$quiet" ] ; then
+        (>&2 echo -e "\e[1;38;05;9m$1\e[m")
+    fi
+}
+
+out()
+{
+    if [ -z "$quiet" ]; then
+        echo "$1"
+    fi
+}
+
+throw()
+{
+    warn "$1"
+    exit 1
+}
+
+phpv=$(php -r '$v = phpversion(); echo $v[0] . $v[2] . PHP_EOL;')
+if [ -z "$phpv" ]; then
+    throw "Can\'t php is not installed"
+fi
+xdebugIni="/etc/opt/remi/php${phpv}/php.d/15-xdebug.ini"
+xdebugIniDisabled="${xdebugIni}.disabled"
+isEnabled=$(php -m | grep xdebug)
+
+if [ ! -f "$xdebugIni" ] && [ ! -f "$xdebugIniDisabled" ] ; then
+    throw "Can\'t find neither $xdebugIni nor $xdebugIniDisabled. Is Xdebug installed?"
+fi
+
+if [ -z "$isEnabled" ] ; then
+  sudo mv "$xdebugIniDisabled" "$xdebugIni" && sudo systemctl restart "php${phpv}-php-fpm"
+else
+  sudo mv "$xdebugIni" "$xdebugIniDisabled" && sudo systemctl restart "php${phpv}-php-fpm"
+fi

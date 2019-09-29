@@ -1,0 +1,7 @@
+#!/bin/bash
+
+isEnabled=$(php -m | grep xdebug)
+
+if [ ! -z "$isEnabled" ] ; then
+  echo -e "\e[0;38;05;197m\uf188\e[0m "
+fi
