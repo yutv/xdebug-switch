@@ -19,7 +19,13 @@ It is a bash script for the fast enabling/disabling Xdebug.
 
         export PS1=$(echo "$PS1" | sed -E 's/(\])(\\\$)/\1\\[\$(ps1-xdebug-status)\\]\2/')
 
-3. Reconnect SSH/Bash Terminal 
+3. Make sure that the ~/.composer/vendor/bin directory is added to your PATH, e.g.:
+
+    **~/.bashrc**
+    
+        export PATH=$HOME/bin:$HOME/.composer/vendor/bin:$PATH:$HOME/.local/bin
+
+4. Reconnect SSH/Bash Terminal 
     
 # Usage
     
