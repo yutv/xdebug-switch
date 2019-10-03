@@ -13,7 +13,7 @@ It is a bash script for the fast enabling/disabling Xdebug.
 
 1. Install xdebug-toggle
 
-        composer global --dev require yutv/xdebug-toggle
+        composer global require yutv/xdebug-toggle:dev-master
 
 2. Insert the following line into ~/.bashrc    
 
