@@ -2,13 +2,18 @@
 
 It is a bash script for the fast enabling/disabling Xdebug.
 
-**Currently it is designed to work on Fedora linux and PHP-FPM from [remirepo](https://rpms.remirepo.net/) only.**
+![](xdebug.gif)
+
+**Prerequisites**
+- Fedora Linux
+- PHP-FPM from [https://rpms.remirepo.net/](https://rpms.remirepo.net/)
+- [awesome-terminal-fonts](https://github.com/gabrielelana/awesome-terminal-fonts)
 
 # Installation
 
 1. Install xdebug-toggle
 
-        composer global require yutv/xdebug-toggle
+        composer global --dev require yutv/xdebug-toggle
 
 2. Insert the following line into ~/.bashrc    
 
