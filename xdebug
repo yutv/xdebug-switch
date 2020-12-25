@@ -20,20 +20,28 @@ throw()
     exit 1
 }
 
-phpv=$(php -r '$v = phpversion(); echo $v[0] . $v[2] . PHP_EOL;')
-if [ -z "$phpv" ]; then
-    throw "Can\'t php is not installed"
+if [ "$EUID" -ne 0 ]; then
+  sudo "$(readlink -f $0)"
+  exit 0
 fi
-xdebugIni="/etc/opt/remi/php${phpv}/php.d/15-xdebug.ini"
-xdebugIniDisabled="${xdebugIni}.disabled"
+
 isEnabled=$(php -m | grep xdebug)
+distro=$(lsb_release -is)
 
-if [ ! -f "$xdebugIni" ] && [ ! -f "$xdebugIniDisabled" ] ; then
-    throw "Can\'t find neither $xdebugIni nor $xdebugIniDisabled. Is Xdebug installed?"
-fi
-
-if [ -z "$isEnabled" ] ; then
-  sudo mv "$xdebugIniDisabled" "$xdebugIni" && sudo systemctl restart "php${phpv}-php-fpm"
-else
-  sudo mv "$xdebugIni" "$xdebugIniDisabled" && sudo systemctl restart "php${phpv}-php-fpm"
-fi
+case "$distro" in
+  'Ubuntu')
+    phpv=$(php -r '$v = phpversion(); echo "{$v[0]}.{$v[2]}\n";')
+    if [ -z "$phpv" ]; then
+        throw "Can\'t php is not installed"
+    fi
+    if [ -z "$isEnabled" ] ; then
+      phpenmod -v "$phpv" xdebug
+    else
+      phpdismod -v "$phpv" xdebug
+    fi
+    systemctl restart "php${phpv}-fpm.service"
+    ;;
+  *)
+    throw "Unsupported $distro distro"
+    ;;
+esac

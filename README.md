@@ -5,29 +5,41 @@ It is a bash script for the fast enabling/disabling Xdebug.
 ![](xdebug.gif)
 
 **Prerequisites**
-- Fedora Linux
-- PHP-FPM from [https://rpms.remirepo.net/](https://rpms.remirepo.net/)
-- [awesome-terminal-fonts](https://github.com/gabrielelana/awesome-terminal-fonts)
+1. Ubuntu
+2. Font Awesome
+     ```bash
+     apt install fonts-font-awesome gnome-tweaks
+     ```
+     Alt+F2 > gnome-tweaks > Fonts > Monospace Text = SourceCodePro+PowerLine+Awesome Regular Regular    11
+
 
 # Installation
 
-1. Install xdebug-toggle
-
-        composer global require yutv/xdebug-toggle:dev-master
-
+1. Clone repository
+   ```bash
+   git clone https://github.com/yutv/xdebug-toggle
+   cd xdebug-toggle
+   ```
+2. Install xdebug-toggle
+   ```bash
+   sudo ./install.sh
+   ```
 2. Insert the following line into ~/.bashrc    
-
-        export PS1=$(echo "$PS1" | sed -E 's/(\])(\\\$)/\1\\[\$(ps1-xdebug-status)\\]\2/')
-
-3. Make sure that the ~/.composer/vendor/bin directory is added to your PATH, e.g.:
-
-    **~/.bashrc**
-    
-        export PATH=$HOME/bin:$HOME/.composer/vendor/bin:$PATH:$HOME/.local/bin
+   ```bash
+   export PS1=$(echo "$PS1" | sed -E 's/(\])(\\\$)/\1\\[\$(ps1-xdebug-status)\\]\2/')
+   ```
+3. Allow xdebug to be run as su without password
+   ```bash
+   sudo visudo
+   yutv ALL = NOPASSWD: /usr/local/bin/xdebug
+   ```
+   where `yutv` is a user name
 
 4. Reconnect SSH/Bash Terminal 
     
 # Usage
-    
-    xdebug # enable Xdebug
-    xdebug # disable Xdebug
+
+```bash
+xdebug # enable Xdebug
+xdebug # disable Xdebug
+```
