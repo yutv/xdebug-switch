@@ -26,7 +26,7 @@ It is a bash script for the fast enabling/disabling Xdebug.
    ```
 2. Insert the following line into ~/.bashrc    
    ```bash
-   export PS1=$(echo "$PS1" | sed -E 's/(\])(\\\$)/\1\\[\$(ps1-xdebug-status)\\]\2/')
+   export PS1=$(echo "$PS1" | sed -E 's/(\])(\\\$)/\1\\[\\e[0;38;05;197m\\]$(ps1-xdebug-status)\\[\\e[0m\\]\2/')
    ```
 3. Allow xdebug to be run as su without password
    ```bash
