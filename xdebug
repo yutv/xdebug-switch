@@ -29,7 +29,7 @@ isEnabled=$(php -m | grep xdebug)
 distro=$(lsb_release -is)
 
 case "$distro" in
-  'Ubuntu')
+  'Ubuntu' | 'Debian')
     phpv=$(php -r '$v = phpversion(); echo "{$v[0]}.{$v[2]}\n";')
     if [ -z "$phpv" ]; then
         throw "Can\'t php is not installed"

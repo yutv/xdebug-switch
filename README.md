@@ -5,7 +5,7 @@ It is a bash script for the fast enabling/disabling Xdebug.
 ![](xdebug.gif)
 
 **Prerequisites**
-1. Ubuntu
+1. Ubuntu or Debian
 2. Font Awesome
      ```bash
      apt install fonts-font-awesome gnome-tweaks
